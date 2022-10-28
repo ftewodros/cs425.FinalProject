@@ -1,0 +1,32 @@
+<header th:fragment="header" xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns="http://www.w3.org/1999/html">
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item" style="border-left: white 1px solid; padding-left: 2em; padding-right: 2em;">
+                    <a class="nav-link" href="/eRental/secured/vehicleList">Vehicles</a>
+                </li>
+                <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item" style="border-left: white 1px solid; padding-left: 2em; padding-right: 2em;">
+                    <a class="nav-link" href="/eRental/secured/category/list">Categories</a>
+                </li>
+                <li sec:authorize="hasRole('ROLE_CONTRACTOR')" class="nav-item" style="border-left: white 1px solid; padding-left: 2em; padding-right: 2em;">
+                    <a class="nav-link" href="/eRental/secured/vehicleList/contractor">Vehicles</a>
+                </li>
+                <li sec:authorize="hasRole('ROLE_RECEPTIONIST')" class="nav-item" style="border-left: white 1px solid; padding-left: 2em; padding-right: 2em;">
+                    <a class="nav-link" href="/eRental/secured/vehicleList">Vehicles</a>
+                </li>
+                <li sec:authorize="hasRole('ROLE_RECEPTIONIST')" class="nav-item" style="border-left: white 1px solid; padding-left: 2em; padding-right: 2em;">
+                    <a class="nav-link" href="/eRental/secured/paymentList">Payments</a>
+                </li>
+                <li sec:authorize="hasRole('ROLE_CLIENT')" class="nav-item" style="border-left: white 1px solid; padding-left: 2em; padding-right: 2em;">
+                    <a class="nav-link" href="/eRental/secured/bookingList/client">Bookings</a>
+                <li sec:authorize="hasRole('ROLE_RECEPTIONIST')" class="nav-item" style="border-left: white 1px solid; padding-left: 2em; padding-right: 2em;">
+                    <a class="nav-link" href="/eRental/secured/bookingList">Bookings</a>
+                </li>
+                <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item" style="border-left: white 1px solid; padding-left: 2em; padding-right: 2em;">
+                    <a class="nav-link" href="/eRental/secured/users">Users</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>

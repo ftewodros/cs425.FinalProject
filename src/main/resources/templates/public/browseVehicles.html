@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="author" content="R. Magweregwede">
+    <link rel="icon" href="favicon.ico">
+    <!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.0.2/spacelab/bootstrap.min.css" integrity="sha512-VlYW/FBl6HHyE7NyAQqT9x1cE3xdIXEYn6s8ckbTx9SGNu8P7Jve1EMa+DZty34NypAaRISbU5qzsansxNqfxg==" crossorigin="anonymous" referrerpolicy="no-referrer" />-->
+    <!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.0.2/zephyr/bootstrap.min.css" integrity="sha512-8AsrxJHNcfBjevT8jxlnbIcZKffcLoLyOymcu4F2ClBWIxgRJ3dNdRolabqSuAa6x4a2ujzzHkjFpmJBQP/74g==" crossorigin="anonymous" referrerpolicy="no-referrer" />-->
+    <!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.0.2/united/bootstrap.min.css" integrity="sha512-XtHhOKn3DkdjRzwiJ0Ssp8QZ5y0BSArAWh9/f8fq17/vk0pL9lc8INRz4EWEAnBVnubjDqpxQuEV6SK09hqroQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.0.2/cerulean/bootstrap.min.css" integrity="sha512-yTmD3eVCm6omGDRFz3vcOdjVhZoX6F3kFgyIGno1c4JQ3PWeSRhB5MaKR6TVb9B4TnHRlrYMy+pFMRJiPJ0bLA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.css}" />
+    <title>Asmeri - Browse Vehicles</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container">
+    <div style="margin-bottom: 1em;">
+        <h1>Choose from our variety of vehicles</h1>
+                    <span style="font-size: 1.5em">List of Customers</span>
+                    <span style="float:right;">
+                        <a class="btn btn-outline-primary btn-lg" href="/srm/supplier/new">Register a New Customer</a>
+                    </span>
+    </div>
+
+    <table class="table table-hover">
+        <tbody>
+        <tr class="datarow" th:each="vehicle, iterStat : ${vehicles}">
+            <td>
+                <div class="row">
+                    <div class="col-md-6">
+                        <img width="400" height="400" th:src="@{${vehicle.imageUrl}}" />
+                </div>
+
+                    <div class="col-md-3">
+                        <span>Model:</span>
+                        <span th:text="${vehicle.model}"></span>
+
+                        <span>Plate Number:</span>
+                        <span th:text="${vehicle.plateNumber}"></span>
+
+                        <a sec:authorize="hasRole('ROLE_CLIENT')" th:href="@{'/eRental/secured/bookVehicle/{vehicleId}'(vehicleId=${vehicle.vehicleId})}">Book Now</a>
+                    </div>
+                    <div class="col-md-3">
+                        <span>Year:</span>
+                        <span th:text="${vehicle.year}"></span>
+
+                        <span>Category:</span>
+                        <span th:text="${vehicle.category.name}"></span>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Bootstrap JavaScript Bundle with Popper -->
+<!-- Placed at the end of the document -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

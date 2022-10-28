@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="author" content="R.Magweregwede">
+    <link rel="icon" href="favicon.ico">
+    <link rel="icon" href="favicon.ico">
+    <!--    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-C++cugH8+Uf86JbNOnQoBweHHAe/wVKN/mb0lTybu/NZ9sEYbd+BbbYtNpWYAsNP" crossorigin="anonymous">-->
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cosmo/bootstrap.min.css" rel="stylesheet" integrity="sha384-uhut8PejFZO8994oEgm/ZfAv0mW1/b83nczZzSwElbeILxwkN491YQXsCFTE6+nx" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+    <title>Asmeri-Register</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<h3>Sign Up with Asmeri</h3>
+<hr/>
+<div class="container">
+        <div class="card border-secondary mb-4">
+            <div class="card-header">Sign Up</div>
+            <div class="card-body">
+                <h4 class="card-title">Sign Up to begin renting today!</h4>
+                <p class="card-text">
+                    Enter your details to sign up.
+                </p>
+                <div>
+                    <form name="formLogin" th:action="@{/eRental/public/register}" method="post" th:object="${user}" enctype="multipart/form-data">
+                        <div th:if="${errors}" class="alert alert-dismissible alert-danger">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            An error occured during registration, please try again later.
+                            <span th:text="${errors}"></span>
+                        </div>
+                        <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input id="username" th:field="${user.user.username}" th:value="${user.user.username}" type="text" class="form-control" autofocus="autofocus"/>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input id="password" th:field="${user.user.password}" th:value="${user.user.password}" type="password" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <div><label for="firstName">First Name</label></div>
+                <div><input id="firstName" th:field="${user.firstName}" th:value="${user.firstName}" type="text" class="form-control" required></div>
+            </div>
+            <div class="form-group">
+                <div><label for="lastName">Last Name</label></div>
+                <div><input id="lastName" th:field="${user.lastName}" th:value="${user.lastName}" type="text" class="form-control" required></div>
+            </div>
+
+            <div class="form-group">
+                <div><label for="phoneNumber">Phone Number</label></div>
+                <div><input id="phoneNumber" th:field="${user.phoneNumber}" th:value="${user.phoneNumber}" type="text" class="form-control" required></div>
+            </div>
+            <div class="form-group">
+                <div><label for="email">Email</label></div>
+                <div><input id="email" th:field="${user.email}" th:value="${user.email}" type="email" class="form-control" required></div>
+            </div>
+                </div>
+
+        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <div><label for="driverLicenceNumber">Drivers Licence Number</label></div>
+                                <div><input id="driverLicenceNumber" th:field="${user.driverLicenceNumber}"th:value="${user.driverLicenceNumber}" type="text" class="form-control" required></div>
+                            </div>
+
+                            <div class="form-group">
+                                <div><label for="dateOfBirth">Date Of Birth</label></div>
+                                <div><input id="dateOfBirth" th:field="${user.dateOfBirth}" th:value="${user.dateOfBirth}" type="date" class="form-control" required></div>
+                            </div>
+
+                            <div class="row">
+                            <div class="form-group col-md-6">
+                                <div><label for="street">Street Address</label></div>
+                                <div><input id="street" th:field="${user.address.street}" th:value="${user.address.street}" type="text" class="form-control" required></div>
+                            </div>
+
+                                <div class="form-group col-md-6">
+                                    <div><label for="city">City</label></div>
+                                    <div><input id="city" th:field="${user.address.city}" th:value="${user.address.city}" type="text" class="form-control" required></div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <div><label for="state">State</label></div>
+                                    <div><input id="state" th:field="${user.address.state}" th:value="${user.address.state}" type="text" class="form-control" required></div>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <div><label for="country">Country</label></div>
+                                    <div><input id="country" th:field="${user.address.country}" th:value="${user.address.country}" type="text" class="form-control" required></div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div><label for="zipcode">Zipcode</label></div>
+                                <div><input id="zipcode" name="zipcode" th:field="${user.address.zipcode}" th:value="${user.address.zipcode}" type="text" class="form-control" required></div>
+                            </div>
+
+                            <div class="form-group">
+                                <div><label for="idImage_url">Upload Driver's License</label></div>
+                                <div><input id="idImage_url" name="image" th:value="${user.idImage_url}" type="file" accept="image/png, image/jpeg" class="form-control"></div>
+                            </div>
+            <div class="form-group">
+                <label for="role">Account Type:</label>
+                <select th:field="${user.user.roles}" id="role" class="form-control" required="required">
+                    <option value="2">Basic</option>
+                    <option value="3">Contractor</option>
+                </select>
+            </div>
+
+        </div>
+                            <div style="float:right;">
+                                <a href="/eRental/public/home" class="btn btn-outline-warning">Cancel</a>&nbsp;&nbsp;&nbsp;
+                                <button id="btnSubmit" type="submit" class="btn btn-outline-success">Sign Up</button>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                <p class="card-text">
+                    Already a member?
+                </p>
+                <a href="/eRental/public/login" class="btn btn-outline-warning">Login</a>&nbsp;
+                </div>
+        </div>
+    </div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

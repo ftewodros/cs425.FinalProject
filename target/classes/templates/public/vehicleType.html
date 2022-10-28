@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://thymeleaf.com">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="author" content="R.Magweregwede">
+    <link rel="icon" href="favicon.ico">
+    <link rel="icon" href="favicon.ico">
+    <!--    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-C++cugH8+Uf86JbNOnQoBweHHAe/wVKN/mb0lTybu/NZ9sEYbd+BbbYtNpWYAsNP" crossorigin="anonymous">-->
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cosmo/bootstrap.min.css" rel="stylesheet" integrity="sha384-uhut8PejFZO8994oEgm/ZfAv0mW1/b83nczZzSwElbeILxwkN491YQXsCFTE6+nx" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+    <title>Vehicle Category</title>
+</head>
+<body>
+<div><a href="/">Home</a></div>
+<div>
+    <div th:replace="fragments/header :: header"></div>
+    <div>
+
+    <table border="0" cellpadding="8" cellspacing="0">
+        <thead>
+        <tr>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="category,c : ${categories}">
+
+            <td>
+                <a  th:text="${category.name}" th:href="@{'/eRental/public/browseVehicles/{id}'(id=${category.categoryId})}"> </a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

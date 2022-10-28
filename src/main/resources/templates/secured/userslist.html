@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="author" content="R. Magweregwede">
+    <link rel="icon" href="favicon.ico">
+    <!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.0.2/spacelab/bootstrap.min.css" integrity="sha512-VlYW/FBl6HHyE7NyAQqT9x1cE3xdIXEYn6s8ckbTx9SGNu8P7Jve1EMa+DZty34NypAaRISbU5qzsansxNqfxg==" crossorigin="anonymous" referrerpolicy="no-referrer" />-->
+    <!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.0.2/zephyr/bootstrap.min.css" integrity="sha512-8AsrxJHNcfBjevT8jxlnbIcZKffcLoLyOymcu4F2ClBWIxgRJ3dNdRolabqSuAa6x4a2ujzzHkjFpmJBQP/74g==" crossorigin="anonymous" referrerpolicy="no-referrer" />-->
+    <!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.0.2/united/bootstrap.min.css" integrity="sha512-XtHhOKn3DkdjRzwiJ0Ssp8QZ5y0BSArAWh9/f8fq17/vk0pL9lc8INRz4EWEAnBVnubjDqpxQuEV6SK09hqroQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.0.2/cerulean/bootstrap.min.css" integrity="sha512-yTmD3eVCm6omGDRFz3vcOdjVhZoX6F3kFgyIGno1c4JQ3PWeSRhB5MaKR6TVb9B4TnHRlrYMy+pFMRJiPJ0bLA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.css}" />
+    <title>Asmeri- Users</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container">
+    <div style="margin-bottom: 1em;">
+        <h1>List of Users</h1>
+        <!--            <span style="font-size: 1.5em">List of Customers</span>-->
+        <!--            <span style="float:right;">-->
+        <!--                <a class="btn btn-outline-primary btn-lg" href="/srm/supplier/new">Register a New Customer</a>-->
+        <!--            </span>-->
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Account Type</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">License Number</th>
+            <th scope="col">Approved</th>
+            <th scope="col" colspan="1"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="datarow" th:each="user, iterStat : ${users}">
+            <th scope="row" th:text="${iterStat.count}+'.'"></th>
+            <td th:text="${user.user.username}"></td>
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:if="${user.user.roles.get(0).roleName == 'ROLE_CLIENT'}">Basic</td>
+            <td th:if="${user.user.roles.get(0).roleName  == 'ROLE_CONTRACTOR'}">Contractor</td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.phoneNumber}"></td>
+            <td th:text="${user.getDriverLicenceNumber()}"></td>
+            <td th:text="${user.approved}"></td>
+            <td>
+                <a th:if="not ${user.approved}" th:href="@{'/eRental/secured/approveUser/{userId}'(userId=${user.id})}">Approve</a>
+            </td>
+<!--            <td>-->
+<!--                <a th:href="@{'/eRental/secured/deleteUser/{userId}'(userId=${user.id})}">Delete</a>-->
+<!--            </td>-->
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<!-- Bootstrap JavaScript Bundle with Popper -->
+<!-- Placed at the end of the document -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

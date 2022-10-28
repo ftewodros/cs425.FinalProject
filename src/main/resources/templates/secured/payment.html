@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="author" content="R.Magweregwede">
+    <link rel="icon" href="favicon.ico">
+    <link rel="icon" href="favicon.ico">
+    <!--    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-C++cugH8+Uf86JbNOnQoBweHHAe/wVKN/mb0lTybu/NZ9sEYbd+BbbYtNpWYAsNP" crossorigin="anonymous">-->
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cosmo/bootstrap.min.css" rel="stylesheet" integrity="sha384-uhut8PejFZO8994oEgm/ZfAv0mW1/b83nczZzSwElbeILxwkN491YQXsCFTE6+nx" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+    <title>eRental-Payment</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<h3>Pay for your booking</h3>
+<hr/>
+<div class="container">
+    <div class="card border-secondary mb-4">
+        <div class="card-body">
+            <div>
+                <form name="formLogin" th:action="@{/eRental/secured/payment}" method="post" th:object="${payment}">
+                    <div th:if="${errors}" class="alert alert-dismissible alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        An error occured during saving, please try again later.
+                        <span th:text="${errors}"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="model">Booking Vehicle</label>
+                                <input id="model" th:field="${payment.booking.vehicle.model}" th:value="${payment.booking.vehicle.model}" type="text" class="form-control" autofocus="autofocus" readonly/>
+                            </div>
+                            <div class="form-group">
+                                <label for="plateNumber">Booking Duration</label>
+                                <input id="plateNumber" th:field="${payment.booking.duration}" th:value="${payment.booking.duration}" type="text" class="form-control" readonly/>
+                                <input id="bookingId" name="bookId" th:value="${payment.booking.bookingId}" type="hidden" class="form-control" readonly/>
+
+                            </div>
+                            <div class="form-group">
+                                <div><label for="method">Method</label></div>
+                                <select th:field="${payment.paymentMethod}" id="method">
+                                    <option value="">Select a prefferred payment method</option>
+                                    <option value="Credit Card">Credit Card</option>
+                                    <option value="Debit Card">Debit Card</option>
+                                    <option value="Paypal">Paypal</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <div><label for="status">Amount</label></div>
+                                <div><input id="status" th:field="${payment.amount}" th:amount="${payment.amount}" type="text" class="form-control" readonly></div>
+                            </div>
+                            <div style="float:right;">
+                                <a href="/eRental/secured/vehicles" class="btn btn-outline-warning">Cancel</a>&nbsp;&nbsp;&nbsp;
+                                <button id="btnSubmit" type="submit" class="btn btn-outline-success">Pay</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="author" content="R.Magweregwede">
+    <link rel="icon" href="favicon.ico">
+    <link rel="icon" href="favicon.ico">
+    <!--    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-C++cugH8+Uf86JbNOnQoBweHHAe/wVKN/mb0lTybu/NZ9sEYbd+BbbYtNpWYAsNP" crossorigin="anonymous">-->
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cosmo/bootstrap.min.css" rel="stylesheet" integrity="sha384-uhut8PejFZO8994oEgm/ZfAv0mW1/b83nczZzSwElbeILxwkN491YQXsCFTE6+nx" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+    <title>Asmeri- Add Vehicle</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<h3>Add a new Vehicle</h3>
+<hr/>
+<div class="container">
+    <div class="card border-secondary mb-4">
+        <div class="card-body">
+            <div>
+                <form name="formLogin" th:action="@{/eRental/secured/addVehicle}" method="post" th:object="${vehicle}" enctype="multipart/form-data">
+                    <div th:if="${errors}" class="alert alert-dismissible alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        An error occured during saving, please try again later.
+                        <span th:text="${errors}"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="model">Model</label>
+                                <input id="model" th:field="${vehicle.model}" th:value="${vehicle.model}" type="text" class="form-control" autofocus="autofocus"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="plateNumber">plateNumber</label>
+                                <input id="plateNumber" th:field="${vehicle.plateNumber}" th:value="${vehicle.plateNumber}" type="text" class="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <div><label for="year">year</label></div>
+                                <div><input id="year" th:field="${vehicle.year}" th:value="${vehicle.year}" type="number" class="form-control" required></div>
+                            </div>
+                            <div class="form-group">
+                                <div><label for="status">status</label></div>
+                                <div><input id="status" th:field="${vehicle.status}" th:value="${vehicle.status}" type="text" placeholder="Available/UnAvailable" class="form-control" required></div>
+                            </div>
+
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <div><label for="idImage_url">Upload Vehicle Image</label></div>
+                                <div><input id="idImage_url" name="image" th:value="${vehicle.imageUrl}" type="file" accept="image/png, image/jpeg" class="form-control"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="category">Category:</label>
+                                <select th:field="${vehicle.category}" id="category" class="form-control" required="required">
+                                    <option value="">Select a category</option>
+                                    <option th:each="category : ${categories}" th:value="${category.categoryId}" th:text="${category.name}"></option>
+                                </select>
+                            </div>
+                            <input id="username" value="null" name="username" class="form-control" type="hidden">
+
+                        </div>
+                        <div style="float:right;">
+                            <a href="/eRental/secured/vehicleList" class="btn btn-outline-warning">Cancel</a>&nbsp;&nbsp;&nbsp;
+                            <button id="btnSubmit" type="submit" class="btn btn-outline-success">Add Vehicle</button>
+                        </div>
+                    </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>

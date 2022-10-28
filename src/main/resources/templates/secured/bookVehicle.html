@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="author" content="R.Magweregwede">
+    <link rel="icon" href="favicon.ico">
+    <link rel="icon" href="favicon.ico">
+    <!--    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-C++cugH8+Uf86JbNOnQoBweHHAe/wVKN/mb0lTybu/NZ9sEYbd+BbbYtNpWYAsNP" crossorigin="anonymous">-->
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cosmo/bootstrap.min.css" rel="stylesheet" integrity="sha384-uhut8PejFZO8994oEgm/ZfAv0mW1/b83nczZzSwElbeILxwkN491YQXsCFTE6+nx" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+    <title>Asmeri- Book Vehicle</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<h3>Book your Vehicle</h3>
+<hr/>
+<div class="container">
+    <div class="card border-secondary mb-4">
+        <div class="card-body">
+            <div>
+                <form name="formLogin" th:action="@{/eRental/secured/bookVehicle}" method="post" th:object="${booking}" enctype="multipart/form-data">
+                    <div th:if="${errors}" class="alert alert-dismissible alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        An error occured during saving, please try again later.
+                        <span th:text="${errors}"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="bookingDate">Date From</label>
+                                <input id="bookingDate" th:field="${booking.bookingDate}"  type="date" class="form-control" autofocus="autofocus" required/>
+                            </div>
+                            <div class="form-group">
+                                <label for="returnDate">Return Date</label>
+                                <input id="returnDate" th:field="${booking.returnDate}"  type="date" class="form-control" autofocus="autofocus" required/>
+                            </div>
+                            <div class="form-group">
+                                <div><label for="year">Vehicle Model</label></div>
+                                <div><input id="year" th:field="${booking.vehicle.model}" th:value="${booking.vehicle.model}" type="text" class="form-control" readonly></div>
+                            </div>
+                            <div class="form-group">
+                                <div><label for="status">Vehicle status</label></div>
+                                <div><input id="status" th:field="${booking.vehicle.status}" th:value="${booking.vehicle.status}" type="text" class="form-control" readonly></div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div><label for="plateNumber">Vehile plate Number</label></div>
+                                    <div><input id="plateNumber" th:field="${booking.vehicle.plateNumber}" th:value="${booking.vehicle.plateNumber}" type="text" class="form-control" readonly></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="category">Vehicle Category:</label>
+                                    <div><input id="category" th:field="${booking.vehicle.category.name}" th:value="${booking.vehicle.category.name}" type="text" class="form-control" readonly></div>
+
+                                </div>
+                                <input id="vehicleId" th:field="${booking.vehicle.vehicleId}"  th:value="${booking.vehicle.vehicleId}" class="form-control" type="hidden">
+
+                            </div>
+                            <div style="float:right;">
+                                <a href="/eRental/secured/vehicles" class="btn btn-outline-warning">Cancel</a>&nbsp;&nbsp;&nbsp;
+                                <button id="btnSubmit" type="submit" class="btn btn-outline-success">Book Vehicle</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>
